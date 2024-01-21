@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 0 12rem;
+  min-height: 100vh;
+  margin-bottom: 20px;
+}
+.container {
+  padding: 0 22rem;
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 0 22rem;
+  }
+}

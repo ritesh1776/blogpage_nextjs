@@ -1,0 +1,32 @@
+.blogs {
+  box-sizing: border-box;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  margin-bottom: 20px;
+}
+.blogItem3 {
+  cursor: pointer;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.blogItemp {
+  max-width: 45vw;
+}
+.btn {
+  color: aquamarine;
+  background: black;
+  padding: 4px 3px;
+  border-radius: 6px;
+  font-size: 9px;
+  cursor: pointer;
+}

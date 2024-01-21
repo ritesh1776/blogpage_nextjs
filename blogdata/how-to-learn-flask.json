@@ -1,0 +1,6 @@
+{
+    "title":"How to learn flask",
+    "content":"Flask is flexible. It doesn’t require you to use any particular project or code layout. However, when first starting, it’s helpful to use a more structured approach. This means that the tutorial will require a bit of boilerplate up front, but it’s done to avoid many common pitfalls that new developers encounter, and it creates a project that’s easy to expand on. Once you become more comfortable with Flask, you can step out of this structure and take full advantage of Flask’s flexibility.",
+    "author":"Raja Bhai",
+    "slug":"how-to-learn-flask"
+}
