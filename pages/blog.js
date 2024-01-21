@@ -1,49 +1,73 @@
-import React, { useState } from "react";
-import styles from "@/styles/Blog.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "../styles/Blog.module.css";
 import Link from "next/link";
-import { useEffect } from "react";
+import * as fs from "fs";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-export async function getServerSideProps(context) {
-  let data = await fetch("http://localhost:3000/api/blogs");
-  let allBlogs = await data.json();
-  return { props: { allBlogs } };
-}
+// Step 1: Collect all the files from blogdata directory
+// Step 2: Iterate through the and Display them
+
 const Blog = (props) => {
-  const [all, setAll] = useState(props.allBlogs);
-  // useEffect(() => {
-  //   console.log("useEffect is running");
-  //   fetch("http://localhost:3000/api/blogs")
-  //     .then((a) => {
-  //       return a.json();
-  //     })
-  //     .then((parsed) => {
-  //       setAll(parsed);
-  //     });
-  // }, []);
+  const [blogs, setBlogs] = useState(props.allBlogs);
+  const [count, setCount] = useState(3);
+
+  const fetchData = async () => {
+    let d = await fetch(`http://localhost:3000/api/blogs/?count=${count + 3}`);
+    setCount(count + 3);
+    let data = await d.json();
+    setBlogs(data);
+    // console.log(data);
+  };
+
   return (
-    <>
+    <div className={styles.container}>
       <main className={styles.main}>
-        <div className={styles.blogs}>
-          <h1>Popular Blogs</h1>
-          {all.map((blogitem) => {
+        <InfiniteScroll
+          dataLength={blogs.length} //This is important field to render the next data
+          next={fetchData}
+          hasMore={props.allCount !== blogs.length}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          {blogs.map((blogitem) => {
             return (
               <div key={blogitem.slug}>
                 <Link href={`/blogpost/${blogitem.slug}`}>
-                  <h3 className={styles.blogItem3}>{blogitem.title}</h3>
+                  <h3 className={styles.blogItemh3}>{blogitem.title}</h3>
                 </Link>
                 <p className={styles.blogItemp}>
-                  {blogitem.content.substr(0, 140)}...
-                  <Link href={`/blogpost/${blogitem.slug}`}>
-                    <button className={styles.btn}>Read More</button>
-                  </Link>
+                  {blogitem.metadesc.substr(0, 140)}...
                 </p>
+                <Link href={`/blogpost/${blogitem.slug}`}>
+                  <button className={styles.btn}>Read More</button>
+                </Link>
               </div>
             );
           })}
-        </div>
+        </InfiniteScroll>
       </main>
-    </>
+    </div>
   );
 };
+
+export async function getStaticProps(context) {
+  let data = await fs.promises.readdir("blogdata");
+  let allCount = data.length;
+  let myfile;
+  let allBlogs = [];
+  for (let index = 0; index < 3; index++) {
+    const item = data[index];
+    myfile = await fs.promises.readFile("blogdata/" + item, "utf-8");
+    allBlogs.push(JSON.parse(myfile));
+  }
+
+  return {
+    props: { allBlogs, allCount }, // will be passed to the page component as props
+  };
+}
 
 export default Blog;

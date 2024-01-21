@@ -2,5 +2,6 @@
     "title":"How to learn Python",
     "content":"Welcome! Are you completely new to programming? If not then we presume you will be looking for information about why and how to get started with Python. Fortunately an experienced programmer in any programming language (whatever it may be) can pick up Python very quickly. It's also easy for beginners to use and learn, so jump in! Installing Python is generally easy, and nowadays many Linux and UNIX distributions include a recent Python. Even some Windows computers (notably those from HP) now come with Python already installed. If you do need to install Python and aren't confident about the task you can find a few notes on the BeginnersGuide/Download wiki page, but installation is unremarkable on most platforms.",
     "author":"Bikki bhai",
+    "metadesc": "Learn Python in few minutes. I will teach you Python in few minutes",
     "slug":"how-to-learn-python"
 }
